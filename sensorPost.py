@@ -1,25 +1,19 @@
 import requests
-import RPI.GPIO as GPIO
 
 import time
+import busio
+import digitalio
+import board
+import adafruit_mcp3xxx.mcp3008 as MCP
+from adafruit_mcp3xxx.analog_in import AnalogIn
+spi = busio.SPI(clock=board.SCK, MISO=board.MISO, MOSI=board.MOSI)
+cs = digitalio.DigitalInOut(board.D5)
+mcp = MCP.MCP3008(spi, cs)
 
-# set gpio pins
-pins = [8, 10, 12, 16, 18]
+channel = AnalogIn(mcp, MCP.P0)
 
-# use board pin numbers and not SoC pin numbers
-GPIO.setmode(GPIO.BOARD)
-
-# set pins as inputs
-for pin in pins:
-    GPIO.setup(pin, GPIO.IN)
-
-# infinite loop checking high vs low and printing
 while True:
-    for pin in pins:
-        if pin == 1:
-            print(str(pin) + " is HIGH")
-        else:
-            print(str(pin) + " is LOW")
-
+    print('Raw ADC Value: ', channel.value)
+    print('ADC Voltage: ' + str(channel.voltage) + 'V')
     time.sleep(0.5)
-    # requests.post("https://maker.ifttt.com/trigger/rpi_test/with/key/dl19EHfc-UHyIuQ-5AjJEQ"
+    #requests.post("https://maker.ifttt.com/trigger/rpi_test/with/key/dl19EHfc-UHyIuQ-5AjJEQ"
