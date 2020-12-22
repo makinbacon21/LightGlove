@@ -19,8 +19,12 @@ while True:
 
     # if voltage > threshold, post to ifttt, wait to prevent multi activation, else wait 0.5s
     if board.get_adc_value(board.A0) < thresh:
-        print("Event triggered")
-        requests.post("https://maker.ifttt.com/trigger/rpi_test/with/key/dl19EHfc-UHyIuQ-5AjJEQ")
+        print("pointer triggered")
+        requests.post("https://maker.ifttt.com/trigger/pointer_finger/with/key/esey_sUu1A1kbufOqfcjz4fYppk18XBgfJMeJkhNMoX")
+        time.sleep(3)
+    elif board.get_adc_value(board.A1) < thresh:
+        print("middle triggered")
+        requests.post("https://maker.ifttt.com/trigger/middle_finger/with/key/esey_sUu1A1kbufOqfcjz4fYppk18XBgfJMeJkhNMoX")
         time.sleep(3)
     else:
         time.sleep(1)
