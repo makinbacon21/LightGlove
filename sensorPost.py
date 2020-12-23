@@ -5,7 +5,7 @@ from DFRobot_RaspberryPi_Expansion_Board import DFRobot_Expansion_Board_IIC as B
 board = Board(1, 0x10)  # Select i2c bus 1, set address to 0x10
 
 # threshold value (TBD)
-thresh = 1000
+thresh = 1300
 
 if __name__ == "__main__":
   while board.begin() != board.STA_OK:  # Board begin and check the board's status
